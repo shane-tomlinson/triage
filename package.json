@@ -4,7 +4,14 @@
   "description": "Router scaffolding for connect/express apps",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive test"
+    "test": "npm run-script lint && npm run-script coverage && npm run-script shippable-report",
+    "lint": "./node_modules/.bin/jshint -c .jshintrc lib/ test/",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
+    "shippable-report": "./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shane-tomlinson/triage.git"
   },
   "keywords": [
     "connect",
@@ -23,6 +30,8 @@
   },
   "devDependencies": {
     "chai": "1.9.1",
-    "mocha": "1.20.0",
+    "istanbul": "0.2.10",
+    "jshint": "2.5.1",
+    "mocha": "1.20.0"
   }
 }
