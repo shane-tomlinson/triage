@@ -2,3 +2,9 @@
 # You know what these are
 node_modules/
 
+# shippable artifacts
+shippable/
+
+# code coverage artifacts
+coverage/
+
