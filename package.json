@@ -1,0 +1,25 @@
+{
+  "name": "triage",
+  "version": "0.0.0",
+  "description": "Router scaffolding for connect/express apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive test"
+  },
+  "keywords": [
+    "connect",
+    "express",
+    "router",
+    "route"
+  ],
+  "author": "Shane Tomlinson",
+  "license": "MPL2.0",
+  "devDependencies": {
+    "mocha": "^1.20.0"
+  },
+  "dependencies": {
+    "joi": "^4.5.0",
+    "glob-require": "0.0.1",
+    "cors": "^2.3.1"
+  }
+}
