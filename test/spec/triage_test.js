@@ -188,4 +188,99 @@ describe('a route handler', function () {
       router.handle(request, respMock);
     });
   });
+
+  describe('that enables cors', function () {
+    it('responds to preflight requests', function (done) {
+      var request = Object.create(RequestMock);
+      request.method = 'OPTIONS';
+      request.url = '/cors';
+      request.headers = {
+        origin: 'localhost'
+      };
+      request.pause = function () {};
+      request.resume = function () {};
+
+      var respMock = {
+        _headers: {},
+        setHeader: function (field, value) {
+          respMock._headers[field] = value;
+        },
+        set: function (field, value) {
+          respMock._headers[field] = value;
+          return this;
+        },
+        end: function () {
+          assert.equal(this.statusCode, 204);
+          assert.ok(this._headers['Access-Control-Allow-Methods']);
+          assert.equal(this._headers['Access-Control-Allow-Origin'], '*');
+          done();
+        }
+      };
+
+      router.handle(request, respMock, function (err) {
+        console.error('Error: %s', String(err));
+        assert.isNull(err);
+      });
+    });
+
+    it('adds the appropriate headers', function (done) {
+      var request = Object.create(RequestMock);
+      request.method = 'get';
+      request.url = '/cors';
+      request.headers = {
+        origin: 'localhost'
+      };
+      request.pause = function () {};
+      request.resume = function () {};
+
+      var respMock = {
+        _headers: {},
+        setHeader: function (field, value) {
+          respMock._headers[field] = value;
+        },
+        set: function (field, value) {
+          respMock._headers[field] = value;
+          return this;
+        },
+        render: function () {
+          assert.ok(this._headers['Access-Control-Allow-Origin']);
+          done();
+        }
+      };
+
+      router.handle(request, respMock);
+    });
+
+    it('passes on cors options to middleware', function (done) {
+      var request = Object.create(RequestMock);
+      request.method = 'OPTIONS';
+      request.url = '/cors-advanced';
+      request.headers = {
+        origin: 'http://non-whitelisted-domain.com'
+      };
+      request.pause = function () {};
+      request.resume = function () {};
+
+      var respMock = {
+        _headers: {},
+        setHeader: function (field, value) {
+          respMock._headers[field] = value;
+        },
+        set: function (field, value) {
+          respMock._headers[field] = value;
+          return this;
+        },
+        end: function () {
+          assert.equal(this.statusCode, 204);
+          assert.equal(this._headers['Access-Control-Allow-Origin'], 'http://whitelisted-origin.com');
+          done();
+        }
+      };
+
+      router.handle(request, respMock, function (err) {
+        console.error('Error: %s', String(err));
+        assert.isNull(err);
+      });
+    });
+  });
 });
