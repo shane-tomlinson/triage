@@ -10,6 +10,4 @@ notifications:
     on_success: change
     on_failure: always
 
-before_script: mkdir -p shippable/codecoverage
-
 script: npm test
