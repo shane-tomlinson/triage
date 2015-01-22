@@ -12,6 +12,7 @@
 const assert = require('chai').assert;
 const path = require('path');
 const Router = require('express').Router;
+const ResponseMock = require('../mocks/response');
 const TEST_ROUTES_DIRECTORY = path.join(__dirname, '..', 'mocks', 'routes');
 
 const Triage = require('../../lib/triage');
@@ -177,12 +178,10 @@ describe('a route handler', function () {
       request.method = 'get';
       request.url = '/static_locals';
 
-      var respMock = {
-        locals: {},
-        render: function () {
-          assert.isTrue(this.locals.hasOwnProperty('added_to_locals'));
-          done();
-        }
+      var respMock = Object.create(ResponseMock);
+      respMock.render = function () {
+        assert.isTrue(this.locals.hasOwnProperty('added_to_locals'));
+        done();
       };
 
       router.handle(request, respMock);
@@ -200,21 +199,12 @@ describe('a route handler', function () {
       request.pause = function () {};
       request.resume = function () {};
 
-      var respMock = {
-        _headers: {},
-        setHeader: function (field, value) {
-          respMock._headers[field] = value;
-        },
-        set: function (field, value) {
-          respMock._headers[field] = value;
-          return this;
-        },
-        end: function () {
-          assert.equal(this.statusCode, 204);
-          assert.ok(this._headers['Access-Control-Allow-Methods']);
-          assert.equal(this._headers['Access-Control-Allow-Origin'], '*');
-          done();
-        }
+      var respMock = Object.create(ResponseMock);
+      respMock.end = function () {
+        assert.equal(this.statusCode, 204);
+        assert.ok(this._headers['Access-Control-Allow-Methods']);
+        assert.equal(this._headers['Access-Control-Allow-Origin'], '*');
+        done();
       };
 
       router.handle(request, respMock, function (err) {
@@ -233,19 +223,10 @@ describe('a route handler', function () {
       request.pause = function () {};
       request.resume = function () {};
 
-      var respMock = {
-        _headers: {},
-        setHeader: function (field, value) {
-          respMock._headers[field] = value;
-        },
-        set: function (field, value) {
-          respMock._headers[field] = value;
-          return this;
-        },
-        render: function () {
-          assert.ok(this._headers['Access-Control-Allow-Origin']);
-          done();
-        }
+      var respMock = Object.create(ResponseMock);
+      respMock.render = function () {
+        assert.ok(this._headers['Access-Control-Allow-Origin']);
+        done();
       };
 
       router.handle(request, respMock);
@@ -261,20 +242,11 @@ describe('a route handler', function () {
       request.pause = function () {};
       request.resume = function () {};
 
-      var respMock = {
-        _headers: {},
-        setHeader: function (field, value) {
-          respMock._headers[field] = value;
-        },
-        set: function (field, value) {
-          respMock._headers[field] = value;
-          return this;
-        },
-        end: function () {
-          assert.equal(this.statusCode, 204);
-          assert.equal(this._headers['Access-Control-Allow-Origin'], 'http://whitelisted-origin.com');
-          done();
-        }
+      var respMock = Object.create(ResponseMock);
+      respMock.end = function () {
+        assert.equal(this.statusCode, 204);
+        assert.equal(this._headers['Access-Control-Allow-Origin'], 'http://whitelisted-origin.com');
+        done();
       };
 
       router.handle(request, respMock, function (err) {

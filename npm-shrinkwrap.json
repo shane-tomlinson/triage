@@ -1,25 +1,28 @@
 {
   "name": "triage",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "dependencies": {
     "bluebird": {
-      "version": "1.2.4",
-      "from": "bluebird@"
+      "version": "2.8.2",
+      "from": "bluebird@2.8.2"
     },
     "cors": {
-      "version": "2.3.1",
-      "from": "cors@",
-      "resolved": "https://registry.npmjs.org/cors/-/cors-2.3.1.tgz"
+      "version": "2.5.3",
+      "from": "cors@2.5.3",
+      "dependencies": {
+        "vary": {
+          "version": "1.0.0",
+          "from": "vary@^1"
+        }
+      }
     },
     "glob-require": {
       "version": "0.0.1",
-      "from": "glob-require@",
-      "resolved": "https://registry.npmjs.org/glob-require/-/glob-require-0.0.1.tgz",
+      "from": "glob-require@0.0.1",
       "dependencies": {
         "glob": {
           "version": "3.2.9",
           "from": "glob@3.2.9",
-          "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.9.tgz",
           "dependencies": {
             "minimatch": {
               "version": "0.2.14",
@@ -45,14 +48,14 @@
     },
     "joi": {
       "version": "4.5.0",
-      "from": "joi@",
+      "from": "joi@4.5.0",
       "dependencies": {
         "hoek": {
-          "version": "2.3.0",
+          "version": "2.11.0",
           "from": "hoek@^2.2.x"
         },
         "topo": {
-          "version": "1.0.0",
+          "version": "1.0.2",
           "from": "topo@1.x.x"
         },
         "isemail": {
