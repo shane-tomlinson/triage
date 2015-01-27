@@ -36,6 +36,11 @@ describe('a route handler', function () {
     triage.init({
       cwd: TEST_ROUTES_DIRECTORY,
       router: router,
+      route_config: {
+        'GET-require-initialization': {
+          key: 'value'
+        }
+      }
     });
   });
 
@@ -165,7 +170,8 @@ describe('a route handler', function () {
       request.url = '/requires_initialization';
 
       router.handle(request, {
-        render: function () {
+        render: function (template, templateData) {
+          assert.equal(templateData.key, 'value');
           done();
         }
       });
