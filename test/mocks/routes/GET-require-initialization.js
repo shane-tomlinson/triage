@@ -4,7 +4,7 @@
 
 // A route that needs to be initialized by running the function.
 
-module.exports = function () {
+module.exports = function (config) {
   return {
     path: '/requires_initialization',
     method: 'get',
@@ -14,8 +14,10 @@ module.exports = function () {
       return true;
     },
 
-    handler: function() {
-      return {};
+    handler: function () {
+      return {
+        key: config.key
+      };
     },
   };
 };
