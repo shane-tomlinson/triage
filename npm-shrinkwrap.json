@@ -1,10 +1,10 @@
 {
   "name": "triage",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "dependencies": {
     "bluebird": {
-      "version": "2.8.2",
-      "from": "bluebird@2.8.2"
+      "version": "2.9.9",
+      "from": "bluebird@2.9.9"
     },
     "cors": {
       "version": "2.5.3",
@@ -23,6 +23,7 @@
         "glob": {
           "version": "3.2.9",
           "from": "glob@3.2.9",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.9.tgz",
           "dependencies": {
             "minimatch": {
               "version": "0.2.14",
@@ -47,8 +48,8 @@
       }
     },
     "joi": {
-      "version": "4.5.0",
-      "from": "joi@4.5.0",
+      "version": "5.1.0",
+      "from": "joi@5.1.0",
       "dependencies": {
         "hoek": {
           "version": "2.11.0",
@@ -59,8 +60,12 @@
           "from": "topo@1.x.x"
         },
         "isemail": {
-          "version": "0.1.2",
-          "from": "isemail@0.1.x"
+          "version": "1.1.1",
+          "from": "isemail@1.x.x"
+        },
+        "moment": {
+          "version": "2.9.0",
+          "from": "moment@2.x.x"
         }
       }
     }
