@@ -16,7 +16,8 @@ module.exports = function (config) {
 
     handler: function () {
       return {
-        key: config.key
+        key: config.key,
+        star_key: config.star_key
       };
     },
   };

@@ -37,6 +37,9 @@ describe('a route handler', function () {
       cwd: TEST_ROUTES_DIRECTORY,
       router: router,
       route_config: {
+        '*': {
+          star_key: 'star_value'
+        },
         'GET-require-initialization': {
           key: 'value'
         }
@@ -171,6 +174,7 @@ describe('a route handler', function () {
 
       router.handle(request, {
         render: function (template, templateData) {
+          assert.equal(templateData.star_key, 'star_value');
           assert.equal(templateData.key, 'value');
           done();
         }
